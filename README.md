@@ -15,6 +15,3 @@ Important:
 Known Issues:
 1. Stop-Loss located in Signal.py does not trigger when the conditions should be met.
 2. At low Renko bar values, some bars might be missing.
-
-References:
-- A portion of the Supertrend class was taken from a post on Stackoverflow.com which has since been deleted and I am unable to find the original creator.
