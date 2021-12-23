@@ -1,0 +1,4 @@
+Example:
+Opening short at: 155.0 on: 2021-12-20 08:57:52.400236
+Opening long at: 151.3 on: 2021-12-20 20:03:57.741281
+Opening short at: 153.3 on: 2021-12-23 00:17:39.048979
