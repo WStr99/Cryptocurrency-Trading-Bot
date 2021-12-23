@@ -5,7 +5,7 @@ The algorithm used by this program is a simple technical trading strategy. Regul
 
 Once running, the program will prompt the user for their desired settings or allow them to chose pre-set default settings. The program will then output a live chart based on those setting parameters. The program will immediately enter a trade once run. The program will then output all trades to the Records.txt file, located in the Strategy folder. In this current state, all trades are Margin trades. This program should be in a position at all times, once the program closes a long position it will immediately enter a short position.
 
-Use the Backtest program to test different settings. The lower the interval time, the more accurate the backtest will be to the algorithms actual performance.
+Use the Backtest program to test different settings. The lower the interval time, the more accurate the backtest will be to the algorithm's actual performance.
 
 Important:
 - This program will trade indefinitely. Once a trade is entered, the only way to stop trading is to terminate the program and close the position on the exchange website.
