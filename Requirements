@@ -1,0 +1,7 @@
+Required 3rd party libraries
+
+Matplotlib
+Pandas
+Numpy
+datetime
+python-binance
