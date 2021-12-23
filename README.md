@@ -12,6 +12,6 @@ Important:
 - Before running, make sure to include your unique Binance API Keys in both the DataReader and Trader classes.
 - The Margin Buy/Sell methods are not fully functional. Review https://python-binance.readthedocs.io/en/latest/ to update the methods.
 
-Known Issues:
+Known Bugs:
 1. Stop-Loss located in Signal.py does not trigger when the conditions should be met.
 2. At low Renko bar values, some bars might be missing.
