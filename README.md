@@ -10,7 +10,7 @@ Use the Backtest program to test different settings. The lower the interval time
 Important:
 - This program will trade indefinitely. Once a trade is entered, the only way to stop trading is to terminate the program and close the position on the exchange website.
 - Before running, make sure to include your unique Binance API Keys in both the DataReader and Trader classes.
-- The Margin Trade/Sell methods are not fully functional. Review https://python-binance.readthedocs.io/en/latest/ to update the methods.
+- The Margin Buy/Sell methods are not fully functional. Review https://python-binance.readthedocs.io/en/latest/ to update the methods.
 
 Known Issues:
 1. Stop-Loss located in Signal.py does not trigger when the conditions should be met.
