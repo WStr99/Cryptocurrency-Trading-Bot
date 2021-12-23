@@ -1,13 +1,17 @@
 # Cryptocurrency-Trading-Bot
 Bot programmed to automatically buy and sell cryptocurrencies.
 
-The algorithm used by this bot is a simple technical trading strategy. Regular OHLC data is replaced by Renko brick data. The Supertrend indicator is then incorperated over the Renko data. This essentially makes the original Supertrend indicator more accurate, as the Renko chart cuts out much of the "noise" that one might see with a typical OHLC candlestick or line chart.  
+The algorithm used by this program is a simple technical trading strategy. Regular OHLC data is replaced by Renko brick data. The Supertrend indicator is then incorperated over the Renko data. This essentially makes the original Supertrend indicator more accurate, as the Renko chart cuts out much of the "noise" that one might see with a typical OHLC candlestick or line chart.  
+
+Once running, the program will prompt the user for their desired settings or allow them to chose pre-set default settings. The program will then output a live chart based on those setting parameters. The program will immediately enter a trade once run. The program will then output all trades to the Records.txt file, located in the Strategy folder. In this current state, all trades are Margin trades. This program should be in a position at all times, once the program closes a long position it will immediately enter a short position.
+
+Use the Backtest program to test different settings. The lower the interval time, the more accurate the backtest will be to the algorithms actual performance.
 
 Important:
-- The Backtest runs with no issue. Use this program to test different settings
+- This program will trade indefinitely. Once a trade is entered, the only way to stop trading is to terminate the program and close the position on the exchange website.
 - Before running, make sure to include your unique Binance API Keys in both the DataReader and Trader classes.
 - The Margin Trade/Sell methods are not fully functional. Review https://python-binance.readthedocs.io/en/latest/ to update the methods.
 
 Known Issues:
-1. Stop-Loss located in Signal.py does not trigger when the conditions should be met
-2. At low Renko bar values, some bars will be missing
+1. Stop-Loss located in Signal.py does not trigger when the conditions should be met.
+2. At low Renko bar values, some bars will be missing.
