@@ -17,4 +17,4 @@ Known Issues:
 2. At low Renko bar values, some bars will be missing.
 
 References:
-- A portion of the Supertrend class was taken from a post on Stackoverflow which has since been deleted and I am unable to find the original creator.
+- A portion of the Supertrend class was taken from a post on Stackoverflow.com which has since been deleted and I am unable to find the original creator.
