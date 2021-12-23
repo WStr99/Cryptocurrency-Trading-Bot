@@ -1,5 +1,5 @@
 # Cryptocurrency-Trading-Bot
-Bot programmed to automatically buy and sell cryptocurrencies.
+ Cryptocurrency Trading Bot
 
 The algorithm used by this program is a simple technical trading strategy. Regular OHLC data is replaced by Renko brick data. The Supertrend indicator is then incorperated over the Renko data. This essentially makes the original Supertrend indicator more accurate, as the Renko chart cuts out much of the "noise" that one might see with a typical OHLC candlestick or line chart.  
 
