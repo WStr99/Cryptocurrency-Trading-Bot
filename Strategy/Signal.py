@@ -39,6 +39,7 @@ class SignalScanner:
         #checks for buy/sell conditions
 
         #if a previous trade has been made
+        #Short position
         if self.position == "Short": #buy signal
             if signal == 1:
                 self.position = "Long"
@@ -50,6 +51,8 @@ class SignalScanner:
                 self.priceEntered = self.getCurrentPrice(dataReader)
                 recordTrade.recordLong(self.priceEntered, df)
                 self.numTrades += 1
+        
+        #Long position
         elif self.position == "Long": #sell signal
             if signal == -1:
                 self.position = "Short"
