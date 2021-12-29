@@ -13,9 +13,9 @@ class RecordTrades:
         msg.set_content(body)
         msg['subject'] = subject
         msg['to'] = to
-        user = #email to send alerts from
+        user = "email to send alerts from"
         msg['from'] = user
-        password = #application password
+        password = "application password"
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login(user, password)
@@ -33,8 +33,8 @@ class RecordTrades:
         record.write(timeOpen)
         record.write("\n")
         record.close()
-        sendAlert("Trade Executed", "\nOpening long at: " + tradeOpen + " on: " + timeOpen, #email)
-        sendAlert("Trade Executed", "\nOpening long at: " + tradeOpen + " on: " + timeOpen, #phone number)
+        sendAlert("Trade Executed", "\nOpening long at: " + tradeOpen + " on: " + timeOpen, "email")
+        sendAlert("Trade Executed", "\nOpening long at: " + tradeOpen + " on: " + timeOpen, "phone number")
 
     #Records short
     def recordShort(self, currentPrice, df):
@@ -47,5 +47,5 @@ class RecordTrades:
         record.write(timeOpen)
         record.write("\n")
         record.close()
-        sendAlert("Trade Executed", "\nOpening short at: " + tradeOpen + " on: " + timeOpen, #email)
-        sendAlert("Trade Executed", "\nOpening short at: " + tradeOpen + " on: " + timeOpen, #phone number)
+        sendAlert("Trade Executed", "\nOpening short at: " + tradeOpen + " on: " + timeOpen, "email")
+        sendAlert("Trade Executed", "\nOpening short at: " + tradeOpen + " on: " + timeOpen, "phone number")
