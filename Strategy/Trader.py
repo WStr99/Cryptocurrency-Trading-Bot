@@ -10,12 +10,10 @@ class Trader:
         self.quantity = 0
         #self.amount
 
-    def setTicker(self, ticker):
-        self.ticker = ticker
-
-    def setQuantity(self, quantity):
-        self.quantity = quantity
-
+    #Sets the amount of a given coin that the user wants to trade
+    def setAmount(self, amount):
+        self.amount = amount
+    
     #Margin buy
     def marginBuy(self):
         order = client.create_margin_order(
