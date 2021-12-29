@@ -23,7 +23,7 @@ class SignalScanner:
     #Returns most recet close price
     def getCurrentPrice(self, dataReader):
         try:
-            dataReader.setStartTime("2 days ago") #shortens start-time to increase speed.
+            dataReader.setStartTime("1 day ago") #shortens start-time to increase speed.
         except:
             print("ERROR: Interval cannot be larger than 1 day.")
         #returns the last column (most recent) of data. It will return the data every <x> seconds, which is how the queue updates.
@@ -35,34 +35,37 @@ class SignalScanner:
         recordTrade = RecordTrades()
         self.addSignalCol(df)
         signal = df["Signal"].iloc[-1]
+
         #checks for buy/sell conditions
-        #buy or sell if there have been no previous numTrades
-        if self.numTrades == 0:
-            if signal == 1: #buy signal
-                self.position = "Long" #saves new position
-                self.trade.marginBuy() #calls trade class to communicate with exchange
-                self.priceEntered = self.getCurrentPrice(dataReader) #saves price entered from trade
-                recordTrade.recordLong(self.priceEntered, df) #records trade
+
+        #if a previous trade has been made
+        if self.position == "Short": #buy signal
+            if signal == 1:
+                self.position = "Long"
+                if self.numTrades == 0: #only executes once if no previous trade
+                    self.trade.marginBuy()
+                elif self.numTrades > 0 :#executes twice to close previous position and open new one
+                    self.trade.marginBuy()
+                    self.trade.marginBuy()
+                self.priceEntered = self.getCurrentPrice(dataReader)
+                recordTrade.recordLong(self.priceEntered, df)
                 self.numTrades += 1
-            elif signal == -1: #sell signal
+        elif self.position == "Long": #sell signal
+            if signal == -1:
                 self.position = "Short"
-                self.trade.marginSell()
+                if self.numTrades == 0: #only executes once if no previous trade
+                    self.trade.marginSell()
+                elif self.numTrades > 0: #executes twice to close old position and open new one
+                    self.trade.marginSell()
+                    self.trade.marginSell()
                 self.priceEntered = self.getCurrentPrice(dataReader)
                 recordTrade.recordShort(self.priceEntered, df)
                 self.numTrades += 1
-        #if a previous trade has been made
-        elif self.numTrades > 0:
-            if self.position == "Short": #buy signal
-                if signal == 1:
-                    self.position = "Long"
-                    self.trade.marginBuy() #executes twice to close previous position and open new one
-                    self.trade.marginBuy()
-                    self.priceEntered = self.getCurrentPrice(dataReader)
-                    recordTrade.recordLong(self.priceEntered, df)
-            elif self.position == "Long": #sell signal
-                if signal == -1:
-                    self.position = "Short"
-                    self.trade.marginSell()
-                    self.trade.marginSell()
-                    self.priceEntered = self.getCurrentPrice(dataReader)
-                    recordTrade.recordShort(self.priceEntered, df)
+
+        #Sets position if no trade has been executed yet
+        #This is so program knows whether to look for a long or short
+        if self.numTrades == 0:
+            if signal == 1: #buy signal
+                self.position = "Long" #saves new position
+            elif signal == -1: #sell signal
+                self.position = "Short"
