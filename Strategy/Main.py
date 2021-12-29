@@ -59,6 +59,7 @@ def main():
         renko.setBrickSize(input(str("Enter Renko Brick size: (Ex: '50')\n>> "))) #sets Renko brick size.
         supertrend.setMultiplyer(input(str("Enter ATR multiplyer: (Ex: '4')\n>> "))) #sets ATR multiplyer for Supertrend.
         supertrend.setPeriods(input(str("Enter time-periods for Supertrend: (Ex: '7')\n>> "))) #sets time period for Supertrend.
+        trader.setAmount(float(input("Enter the amount you would like to trade: \n>> ")))
 
     #retrieves data and adds indicators now that parameters are set.
     priceData = dataReader.getData() #retreives data from Binance.
