@@ -66,16 +66,3 @@ class SignalScanner:
                     self.trade.marginSell()
                     self.priceEntered = self.getCurrentPrice(dataReader)
                     recordTrade.recordShort(self.priceEntered, df)
-        #Stop/loss
-        stopBuy = self.priceEntered + (self.priceEntered * 0.035)
-        stopSell =  self.priceEntered - (self.priceEntered * 0.035)
-        if self.numTrades > 0 and signal == -1 and self.getCurrentPrice(dataReader) > stopBuy: #when loss is greater than 1%
-                if self.position == "Short":
-                    self.trade.marginBuy()
-                    self.trade.marginBuy()
-                    recordTrade.recordStopLong(self.getCurrentPrice(dataReader))
-        elif self.numTrades > 0 and signal == 1 and self.getCurrentPrice(dataReader) < stopSell:
-                if self.position == "Long":
-                    self.trade.marginSell()
-                    self.trade.marginSell()
-                    recordTrade.recordStopShort(self.getCurrentPrice(dataReader))
