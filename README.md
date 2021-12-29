@@ -13,4 +13,4 @@ Important:
 - The Margin Buy/Sell methods are not fully functional. Review https://python-binance.readthedocs.io/en/latest/ to update the methods.
 
 Known Bugs:
-2. At low Renko bar values, some bars might be missing.
+1. At low Renko bar values, some bars might be missing.
