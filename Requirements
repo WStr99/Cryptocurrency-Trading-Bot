@@ -1,8 +1,8 @@
 Required 3rd party libraries
 
-Matplotlib
-Pandas
-Numpy
+matplotlib
+pandas
+numpy
 datetime
 python-binance
 smtplib
