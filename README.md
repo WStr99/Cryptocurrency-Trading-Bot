@@ -11,7 +11,7 @@ Important:
 - This program will trade indefinitely. Once a trade is entered, the only way to stop trading is to terminate the program and close the position on the exchange website.
 - Before running, make sure to include your unique Binance API Keys in both the DataReader and Trader classes.
 - The Margin Buy/Sell methods are not fully functional. Review https://python-binance.readthedocs.io/en/latest/ to update the methods.
-- The RecordTrades class is not fully functional. Before running make sure to replace the comments with your personal email and phone number to recieve notifications. Use this link to fund the correct SMS or MSS gateway domain based on your cell provider. https://smith.ai/blog/how-send-email-text-message-and-text-via-email 
+- Before running make sure to replace the comments in the RecordTrades class with your personal email and phone number to recieve notifications. Use this link to fund the correct SMS or MSS gateway domain based on your cell provider. https://smith.ai/blog/how-send-email-text-message-and-text-via-email 
 
 Known Bugs:
 1. At low Renko bar values, some bars might be missing.
