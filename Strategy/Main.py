@@ -22,7 +22,7 @@ def main():
         return priceData.iloc[-1]
 
     #instructional message to user
-    print("--- RESTT version 2.0.0 ---\n")
+    print("--- version 2.0.0 ---\n")
     print("Type 'set' to set algorithm parameters\nType 'default' to use default parameters\nType 'quit' to exit\n")
     print("Default parameters: (ticker='BTCUSDT', timeframe='4h', start-time='1 week ago', brick-size=50, multiplyer=4, periods=7)\n")
 
