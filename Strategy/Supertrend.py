@@ -6,8 +6,8 @@ warnings.filterwarnings('ignore')
 class Supertrend:
 
     def __init__(self):
-        self.multiplyer = 4
-        self.periods = 7
+        self.multiplyer = 0
+        self.periods = 0
 
     def setMultiplyer(self, multiplyer):
         self.multiplyer = multiplyer
