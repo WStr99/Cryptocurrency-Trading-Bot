@@ -8,7 +8,6 @@ from Trader import Trader
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-#Main method
 def main():
 
     #Retrives the most recent price data.
@@ -20,6 +19,16 @@ def main():
         #returns the last column (most recent) of data. It will return the data every <x> seconds, which is how the queue updates.
         priceData = dataReader.getData()
         return priceData.iloc[-1]
+
+    #Exits current position
+    def closePosition(scanner, trader):
+        if scanner.getNumTrades() > 0:
+            if scanner.getPosition() == "Short":
+                trader.marginBuy()
+            elif scanner.getPosition() == "Long":
+                trader.marginSell()
+        else:
+            pass
 
     #instructional message to user
     print("--- Cryptocurrency Trading-bot ---\n")
@@ -44,18 +53,15 @@ def main():
     trader = Trader() #Trader object to communicate with Bitfinex and perform trades.
 
     #prompts user in case they chose to manually set parameters.
-    #prompts user for ticker that they want to trade with.
-    ticker = input(str("Enter ticker: (Ex: 'BTCUSDT')\n>> "))
+    ticker = input(str("Enter ticker: (Ex: 'BTCUSD')\n>> ")) #prompts user for ticker that they want to trade with.
     dataReader.setTicker(ticker) #allows the user to pull data for the specific ticker they input.
     trader.setTicker(ticker) #tells the Trade class which ticker to trade with.
-    trader.setQuantity(float(input("Enter amount you would you like to trade: (Ex: 0.05)\n>> "))) #sets the amount the user wants to trade with.
-    dataReader.setInterval(input(str("Enter timeframe: (Ex: '1m, 1h, 1d')\n>> "))) #sets the interval time.
+    dataReader.setInterval(input(str("Enter timeframe: (Ex: '1m, 1h 1d')\n>> "))) #sets the interval time.
     dataReader.setStartTime(input("Enter start-time: (Ex: '1 week ago')\n>> ")) #sets the start time.
     renko.setBrickSize(input(str("Enter Renko Brick size: (Ex: '50')\n>> "))) #sets Renko brick size.
     supertrend.setMultiplyer(input(str("Enter ATR multiplyer: (Ex: '4')\n>> "))) #sets ATR multiplyer for Supertrend.
     supertrend.setPeriods(input(str("Enter time-periods for Supertrend: (Ex: '7')\n>> "))) #sets time period for Supertrend.
     trader.setAmount(float(input("Enter the amount you would like to trade: \n>> ")))
-
     #retrieves data and adds indicators now that parameters are set.
     priceData = dataReader.getData() #retreives data from Binance.
     renkoData = renko.calculateRenko(priceData) #converts data to renko.
@@ -81,8 +87,9 @@ def main():
                         newBricks = renko.addRenkoBrick(prevBrick, currentClose)
                         control = False
                     except KeyboardInterrupt:
-                        queue.printToFile()
-                        print("\n\nKeyboard exception received. Exiting.")
+                        print("\nKeyboard exception received.\nClosing current position.\nExiting program.")
+                        #exits current position
+                        closePosition(scanner, trader)
                         exit()
                     except:
                         #Throws connection error but attempts to connect again
@@ -92,8 +99,9 @@ def main():
                         continue
                 #if attempts exceed 200 (every 5 seconds), ends the program
                 else:
-                    print("Maximum number of connection attempts exceeded.")
-                    # -- Close existing trade --
+                    print("Maximum number of connection attempts exceeded.\nClosing current position.")
+                    #exits current position
+                    closePosition(scanner, trader)
                     exit()
 
             #adds to queue if a new Renko brick(s) is formed.
@@ -108,9 +116,9 @@ def main():
             plt.plot(df["SuperTrend"], color = "royalblue", linewidth = 2) #also try color = tab:red
             for i in range(len(df["close"])):
                 if df["uptrend"].iloc[i] == True:
-                    plt.gca().add_patch(Rectangle((i, df["close"].iloc[i]-1), 1, renko.getBrickSize(), facecolor = 'forestgreen')) #edgecolor = black
+                    plt.gca().add_patch(Rectangle((i, df["close"].iloc[i]), 1, renko.getBrickSize(), facecolor = 'forestgreen')) #edgecolor = black
                 elif df["uptrend"].iloc[i] == False:
-                    plt.gca().add_patch(Rectangle((i, df["close"].iloc[i]-1), 1, renko.getBrickSize(), facecolor = 'red'))
+                    plt.gca().add_patch(Rectangle((i, df["close"].iloc[i]), 1, renko.getBrickSize(), facecolor = 'red'))
             plt.title(dataReader.getTicker())
             plt.xlabel("bars")
             plt.ylabel("price")
@@ -120,12 +128,13 @@ def main():
             plt.clf()
             #scanner class scans data to check if trade condition is met.
             scanner.checkConditions(df, dataReader)
-            time.sleep(60) #repeats once per minute
+            time.sleep(60*60)
         except AttributeError:
             pass
         except KeyboardInterrupt:
-            queue.printToFile()
-            print("\n\nKeyboard exception received. Exiting.")
+            print("\n\nKeyboard exception received. \nClosing current position.\nExiting program.")
+            #exits current position
+            closePosition(scanner, trader)
             exit()
 
 if __name__ == "__main__":
