@@ -10,6 +10,12 @@ class SignalScanner:
         self.priceEntered = 0
         self.numTrades = 0
         self.trade = trade
+        
+    def getPosition(self):
+       return self.position
+
+    def getNumTrades(self):
+        return self.numTrades
 
     #Adds a new column with past trade signals
     def addSignalCol(self, df): #Turn this into member variable
