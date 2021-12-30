@@ -14,7 +14,7 @@ def main():
     #Retrives the most recent price data.
     def update(dataReader):
         try:
-            dataReader.setStartTime("2 days ago") #shortens start-time to increase speed.
+            dataReader.setStartTime("1 day ago") #shortens start-time to increase speed.
         except:
             print("ERROR: Interval cannot be larger than 1 day.")
         #returns the last column (most recent) of data. It will return the data every <x> seconds, which is how the queue updates.
@@ -22,22 +22,18 @@ def main():
         return priceData.iloc[-1]
 
     #instructional message to user
-    print("--- version 2.0.0 ---\n")
-    print("Type 'set' to set algorithm parameters\nType 'default' to use default parameters\nType 'quit' to exit\n")
-    print("Default parameters: (ticker='BTCUSDT', timeframe='4h', start-time='1 week ago', brick-size=50, multiplyer=4, periods=7)\n")
+    print("--- Cryptocurrency Trading-bot ---\n")
+    print("Type 'set' to set algorithm parameters\nType 'quit' to exit\n")
 
     #user choses to manually set parameters, use default parameters, or quit.
     control = True
     while control == True:
         userInput = input(str(">> ")) #prompts user for input.
         if userInput.lower() == "set":
-            defaultParameters = False
-            control = False
-        elif userInput.lower() == "default":
-            defaultParameters = True
             control = False
         elif userInput == "quit":
             return "Exiting Program......"
+            exit()
         else:
             print("ERROR: Unrecognized command. Please try again.")
 
@@ -48,18 +44,17 @@ def main():
     trader = Trader() #Trader object to communicate with Bitfinex and perform trades.
 
     #prompts user in case they chose to manually set parameters.
-    if defaultParameters == False:
-        #prompts user for ticker that they want to trade with.
-        ticker = input(str("Enter ticker: (Ex: 'BTCUSDT')\n>> "))
-        dataReader.setTicker(ticker) #allows the user to pull data for the specific ticker they input.
-        trader.setTicker(ticker) #tells the Trade class which ticker to trade with.
-        trader.setQuantity(float(input("Enter amount you would you like to trade: (Ex: 0.05)\n>> "))) #sets the amount the user wants to trade with.
-        dataReader.setInterval(input(str("Enter timeframe: (Ex: '1m, 1h, 1d')\n>> "))) #sets the interval time.
-        dataReader.setStartTime(input("Enter start-time: (Ex: '1 week ago')\n>> ")) #sets the start time.
-        renko.setBrickSize(input(str("Enter Renko Brick size: (Ex: '50')\n>> "))) #sets Renko brick size.
-        supertrend.setMultiplyer(input(str("Enter ATR multiplyer: (Ex: '4')\n>> "))) #sets ATR multiplyer for Supertrend.
-        supertrend.setPeriods(input(str("Enter time-periods for Supertrend: (Ex: '7')\n>> "))) #sets time period for Supertrend.
-        trader.setAmount(float(input("Enter the amount you would like to trade: \n>> ")))
+    #prompts user for ticker that they want to trade with.
+    ticker = input(str("Enter ticker: (Ex: 'BTCUSDT')\n>> "))
+    dataReader.setTicker(ticker) #allows the user to pull data for the specific ticker they input.
+    trader.setTicker(ticker) #tells the Trade class which ticker to trade with.
+    trader.setQuantity(float(input("Enter amount you would you like to trade: (Ex: 0.05)\n>> "))) #sets the amount the user wants to trade with.
+    dataReader.setInterval(input(str("Enter timeframe: (Ex: '1m, 1h, 1d')\n>> "))) #sets the interval time.
+    dataReader.setStartTime(input("Enter start-time: (Ex: '1 week ago')\n>> ")) #sets the start time.
+    renko.setBrickSize(input(str("Enter Renko Brick size: (Ex: '50')\n>> "))) #sets Renko brick size.
+    supertrend.setMultiplyer(input(str("Enter ATR multiplyer: (Ex: '4')\n>> "))) #sets ATR multiplyer for Supertrend.
+    supertrend.setPeriods(input(str("Enter time-periods for Supertrend: (Ex: '7')\n>> "))) #sets time period for Supertrend.
+    trader.setAmount(float(input("Enter the amount you would like to trade: \n>> ")))
 
     #retrieves data and adds indicators now that parameters are set.
     priceData = dataReader.getData() #retreives data from Binance.
@@ -99,7 +94,6 @@ def main():
                 else:
                     print("Maximum number of connection attempts exceeded.")
                     # -- Close existing trade --
-                    queue.printToFile()
                     exit()
 
             #adds to queue if a new Renko brick(s) is formed.
