@@ -8,9 +8,9 @@ warnings.filterwarnings('ignore')
 class DataReader:
 
     def __init__(self):
-        self.ticker = "BTCUSDT"
-        self.interval = "4h"
-        self.start = "1 week ago UTC"
+        self.ticker = ""
+        self.interval = ""
+        self.start = ""
         self.client = Client('Binance API Keys') #Private API Keys
 
     def setTicker(self, ticker):
