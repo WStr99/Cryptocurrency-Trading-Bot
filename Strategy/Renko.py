@@ -7,7 +7,7 @@ warnings.filterwarnings('ignore')
 class RenkoBars:
 
     def __init__(self):
-        self.brickSize = 50
+        self.brickSize = 0
 
     def setBrickSize(self, brickSize):
         try:
