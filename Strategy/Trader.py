@@ -8,7 +8,6 @@ class Trader:
         self.client = Client('Binance API Keys') #Private API Keys
         self.ticker = 'BTCUSDT'
         self.quantity = 0
-        #self.amount
 
     #Sets the amount of a given coin that the user wants to trade
     def setAmount(self, amount):
