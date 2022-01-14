@@ -3,14 +3,12 @@ class Queue:
 
     def __init__(self, df):
         self.df = df
-        self.temp = []
 
     #Inserts element in front of queue  #if last 2 == current 2
     def enqueue(self, newBricks, brickSize):
         self.df = pd.concat([self.df, newBricks], ignore_index = True)
         #remove last element from queue
-        if len(self.df["close"]) > 300: #keeps Queue from getting too large
-            self.dequeue()
+        self.dequeue()
 
     def dequeue(self):
         self.df.drop(labels = 0, axis = 0, inplace = True)
